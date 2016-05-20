@@ -23,31 +23,27 @@
 	<script>
 	$(function(){
 		var x = document.getElementById("demo");
+		 var weather_longitude;
+		 var weather_latitude;
 		(function getLocation() {
-			console.log(4444);
 			if (navigator.geolocation) {
-				x.innerHTML=navigator.geolocation.getCurrentPosition(showPosition);
-				$.ajax({
-				type: "GET", // GET & url for json slightly different
-				url: "http://api.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"3.3&appid=1c00681182fdd5faf507d4b83a3c7dd4",
-				data: $this.serialize(),
-				dataType    : 'json',
-				contentType: "application/json; charset=utf-8",
-				error       : function(err) { alert("Invalid data supplied"); },
-				success     : function(data) {
-					if (data.result != "success") {
-						alert(data.msg);
-					} else {
-						window.location.assign('video.html');
-					}
-				}
-				else {
+				navigator.geolocation.getCurrentPosition(showPosition);
+				getWeather();
+			}
+			else {
 				x.innerHTML = "Geolocation is not supported by this browser.";
 			}
+			function showPosition(position) {
+			 weather_longitude = position.coords.latitude;
+			 weather_latitude = position.coords.longitude;
+			}
+			function getWeather(weather_latitude, weather_longitude) {
+			$.getJSON( "http://api.openweathermap.org/data/2.5/weather?lat=&lon=5&appid=1c00681182fdd5faf507d4b83a3c7dd4", function( data ) {
+				alert(data);
+			})
+			}		
 		})();
-		function showPosition(position) {
-			x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude;
-		}
+		
 	});
 
 </script>
