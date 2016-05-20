@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=0">
+    <title>Weather App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="http//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="http//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    
+
+</head>
+<body>
+	<div class='container'>
+		<div class='page-header'>
+		<h1>This is a weather app</h1>
+		<div id='demo'>
+		</div>
+		<button> Go </button>
+	</div>
+	</div>
+	<script>
+	$(function(){
+		var x = document.getElementById("demo");
+		(function getLocation() {
+			console.log(4444);
+			if (navigator.geolocation) {
+				x.innerHTML=navigator.geolocation.getCurrentPosition(showPosition);
+				$.ajax({
+				type: "GET", // GET & url for json slightly different
+				url: "http://api.openweathermap.org/data/2.5/weather?lat="+position.coords.latitude+"&lon="+position.coords.longitude+"3.3&appid=1c00681182fdd5faf507d4b83a3c7dd4",
+				data: $this.serialize(),
+				dataType    : 'json',
+				contentType: "application/json; charset=utf-8",
+				error       : function(err) { alert("Invalid data supplied"); },
+				success     : function(data) {
+					if (data.result != "success") {
+						alert(data.msg);
+					} else {
+						window.location.assign('video.html');
+					}
+				}
+				else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		})();
+		function showPosition(position) {
+			x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude;
+		}
+	});
+
+</script>
+</body>
+</html>
