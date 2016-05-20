@@ -44,6 +44,11 @@
 			$.getJSON( "http://api.openweathermap.org/data/2.5/weather?lat="+weather_latitude+"&lon="+weather_longitude+"5&appid=1c00681182fdd5faf507d4b83a3c7dd4", function( data ) {
 				$('#weather_data').text(data.weather[0].description);
 				console.log(data.weather[0].description);
+				console.log(data.main.temp);
+				console.log(data.main.pressure);
+				console.log(data.weather[0].main);
+				console.log(data.coord.long);
+
 			})
 
 			}
