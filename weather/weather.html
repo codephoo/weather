@@ -23,26 +23,28 @@
 	<script>
 	$(function(){
 		var x = document.getElementById("demo");
-		 var weather_longitude;
-		 var weather_latitude;
+		 
 		(function getLocation() {
+			var weather_longitude;
+			var weather_latitude;
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(showPosition);
-				getWeather();
+				//alert(weather_latitude)
 			}
 			else {
 				x.innerHTML = "Geolocation is not supported by this browser.";
 			}
 			function showPosition(position) {
 			 weather_longitude = position.coords.latitude;
+			 console.log(weather_longitude);
 			 weather_latitude = position.coords.longitude;
+			 setTimeout(function(){
+			$.getJSON( "http://api.openweathermap.org/data/2.5/weather?lat="+weather_latitude+"&lon="+weather_longitude+"5&appid=1c00681182fdd5faf507d4b83a3c7dd4", function( data ) {
+				console.log(data.name);
+			}), 3000})
 			}
-			function getWeather(weather_latitude, weather_longitude) {
-			$.getJSON( "http://api.openweathermap.org/data/2.5/weather?lat=&lon=5&appid=1c00681182fdd5faf507d4b83a3c7dd4", function( data ) {
-				alert(data);
-			})
-			}		
-		})();
+			
+			})();
 		
 	});
 
