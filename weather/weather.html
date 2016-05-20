@@ -7,7 +7,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <link rel="stylesheet" href="http//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="http//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
-    <link href="css/style.css" rel="stylesheet"/>
+    <style type="text/css">
+    #weather_data{
+    	color:red;
+    	font-size: 21px;
+    }
+
+    </style>
     
 
 </head>
@@ -15,15 +21,13 @@
 	<div class='container'>
 		<div class='page-header'>
 		<h1>This is a weather app</h1>
-		<div id='demo'>
+		<div id='weather_data'>
 		</div>
 		<button> Go </button>
 	</div>
 	</div>
 	<script>
-	$(function(){
-		var x = document.getElementById("demo");
-		 
+	$(function(){		 
 		(function getLocation() {
 			var weather_longitude;
 			var weather_latitude;
@@ -36,16 +40,14 @@
 			}
 			function showPosition(position) {
 			 weather_longitude = position.coords.latitude;
-			 console.log(weather_longitude);
 			 weather_latitude = position.coords.longitude;
-			 setTimeout(function(){
 			$.getJSON( "http://api.openweathermap.org/data/2.5/weather?lat="+weather_latitude+"&lon="+weather_longitude+"5&appid=1c00681182fdd5faf507d4b83a3c7dd4", function( data ) {
-				console.log(data.name);
-			}), 3000})
+				$('#weather_data').text(data.weather[0].description);
+				console.log(data.weather[0].description);
+			})
+
 			}
-			
-			})();
-		
+		})();	
 	});
 
 </script>
